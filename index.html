@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دار الجمال | Dar El Gamal</title>
+<style>
+  :root {
+    --terracotta: #C86A4A;
+    --warm-cream: #F6EFE6;
+    --muted-sage: #A8B59A;
+    --cocoa-brown: #5A3E32;
+    --dusty-rose: #D7A5A1;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, sans-serif; scroll-behavior:smooth; }
+  body { background:var(--warm-cream); color:var(--cocoa-brown); }
+
+  nav {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 5%; background:var(--warm-cream); position:sticky; top:0; z-index:100;
+    border-bottom:2px solid var(--dusty-rose);
+  }
+  .logo { font-size:1.7rem; font-weight:bold; letter-spacing:1px; }
+  .logo span { color:var(--terracotta); }
+  .nav-links a { margin:0 12px; text-decoration:none; color:var(--cocoa-brown); font-weight:600; transition:.3s; }
+  .nav-links a:hover { color:var(--terracotta); }
+
+ .hero {
+  height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 20px;
+  background: linear-gradient(rgba(246,239,230,.85), rgba(246,239,230,.85)), url('images/hero-bg.jpg') center/cover;
+}
+.hero h1 { font-size:3.2rem; margin-bottom:10px; }
+.hero p { font-size:1.2rem; margin-bottom:30px; color:var(--muted-sage); font-weight:bold; }
+.btn {
+  padding:12px 30px; background:var(--terracotta); color:var(--warm-cream);
+  border:none; border-radius:25px; font-size:1.1rem; cursor:pointer; transition:.3s;
+}
+  .btn:hover { background:var(--cocoa-brown); }
+
+  .section-title { text-align:center; margin:60px 0 25px; font-size:2.3rem; }
+  .section-sub { text-align:center; color:var(--muted-sage); margin-bottom:30px; font-weight:bold; }
+
+  .filters { display:flex; justify-content:center; gap:10px; margin-bottom:30px; flex-wrap:wrap; }
+  .filter-btn {
+    padding:8px 20px; border:2px solid var(--muted-sage); background:transparent;
+    border-radius:20px; cursor:pointer; color:var(--cocoa-brown); font-weight:bold; transition:.3s;
+  }
+  .filter-btn.active, .filter-btn:hover { background:var(--muted-sage); color:#fff; }
+
+  .products-container {
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+    gap:30px; padding:0 5% 40px;
+  }
+  .product-card {
+    background:#fff; border-radius:15px; overflow:hidden; transition:.3s;
+    box-shadow:0 5px 15px rgba(90,62,50,.1); border-bottom:4px solid var(--muted-sage);
+  }
+  .product-card:hover { transform:translateY(-8px); border-bottom-color:var(--terracotta); }
+  .product-img { width:100%; height:240px; object-fit:cover; }
+  .product-info { padding:18px; text-align:center; }
+  .product-info h3 { margin-bottom:8px; }
+  .price { color:var(--terracotta); font-weight:bold; font-size:1.15rem; margin-bottom:12px; }
+  .add-to-cart {
+    width:100%; padding:10px; background:var(--dusty-rose); border:none;
+    color:#fff; border-radius:8px; cursor:pointer; font-weight:bold; transition:.3s;
+  }
+  .add-to-cart:hover { background:var(--cocoa-brown); }
+
+  .category-tabs {
+    display:flex; justify-content:center; gap:15px; flex-wrap:wrap; margin-bottom:40px;
+  }
+  .cat-tab {
+    padding:12px 30px; border-radius:30px; border:2px solid var(--terracotta);
+    background:transparent; color:var(--cocoa-brown); font-weight:bold; cursor:pointer;
+    font-size:1.05rem; transition:.3s;
+  }
+  .cat-tab.active, .cat-tab:hover { background:var(--terracotta); color:var(--warm-cream); }
+
+  .style-section { padding:0 5% 40px; }
+  .style-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:25px; }
+  .style-card { position:relative; border-radius:15px; overflow:hidden; height:320px; box-shadow:0 5px 15px rgba(90,62,50,.15); }
+  .style-card img { width:100%; height:100%; object-fit:cover; transition:.4s; }
+  .style-card:hover img { transform:scale(1.08); }
+  .style-overlay {
+    position:absolute; bottom:0; width:100%; padding:20px;
+    background:linear-gradient(transparent, rgba(90,62,50,.9)); color:var(--warm-cream);
+  }
+  .style-overlay h4 { font-size:1.2rem; margin-bottom:5px; }
+
+  .behind { display:flex; flex-wrap:wrap; align-items:center; gap:40px; padding:40px 5%; background:var(--muted-sage); }
+  .behind img { flex:1 1 300px; border-radius:15px; width:100%; max-height:400px; object-fit:cover; }
+  .behind-text { flex:1 1 300px; color:var(--warm-cream); }
+  .behind-text h2 { font-size:2rem; margin-bottom:15px; }
+  .behind-text p { line-height:1.9; font-size:1.05rem; }
+
+  .gift { margin:60px 5%; padding:40px; border-radius:20px; text-align:center; background:var(--dusty-rose); color:var(--cocoa-brown); }
+  .gift h2 { font-size:2rem; margin-bottom:10px; }
+  .gift p { margin-bottom:20px; font-size:1.05rem; }
+  .gift .btn { background:var(--cocoa-brown); color:var(--warm-cream); }
+
+  .care-section { padding:0 5% 40px; }
+  .care-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:20px; }
+  .care-card { background:#fff; padding:25px; border-radius:15px; text-align:center; border-top:4px solid var(--terracotta); box-shadow:0 5px 15px rgba(90,62,50,.08); }
+  .care-card .icon { font-size:2.2rem; margin-bottom:10px; }
+  .care-card h4 { margin-bottom:8px; }
+  .care-card p { font-size:.95rem; color:#7a5f53; }
+
+  .reviews-section { padding:0 5% 40px; }
+  .reviews-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:25px; }
+  .review-card { background:#fff; padding:25px; border-radius:15px; box-shadow:0 5px 15px rgba(90,62,50,.08); border-right:4px solid var(--dusty-rose); }
+  .review-card .stars { color:var(--terracotta); margin-bottom:10px; }
+  .review-card p { font-style:italic; line-height:1.7; margin-bottom:12px; }
+  .reviewer { font-weight:bold; color:var(--muted-sage); }
+
+  .insta-section { padding:0 5% 60px; text-align:center; }
+  .insta-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:12px; margin-top:20px; }
+  .insta-grid img { width:100%; height:180px; object-fit:cover; border-radius:12px; transition:.3s; cursor:pointer; }
+  .insta-grid img:hover { transform:scale(1.05); opacity:.85; }
+
+  footer { background:var(--cocoa-brown); color:var(--warm-cream); text-align:center; padding:35px 20px; }
+  footer .socials a { color:var(--dusty-rose); margin:0 10px; text-decoration:none; font-weight:bold; }
+
+  @media(max-width:768px){
+    .nav-links { display:none; }
+    .hero h1 { font-size:2.3rem; }
+    .section-title { font-size:1.8rem; }
+    .behind { flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">دار <span>الجمال</span></div>
+  <div class="nav-links">
+    <a href="#shop">المتجر</a>
+    <a href="#style">تنسيقات</a>
+    <a href="#behind">من نحن</a>
+    <a href="#reviews">آراء العملاء</a>
+    <a href="#contact">اتصلي بنا</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>دار الجمال</h1>
+  <p>إكسسوارات، شنط، وجزم بلمسة ترابية دافئة</p>
+  <button class="btn" onclick="document.getElementById('shop').scrollIntoView()">تسوقي الآن</button>
+</header>
+
+<section id="shop">
+  <h2 class="section-title">مجموعتنا</h2>
+  <p class="section-sub">اختاري القسم اللي يناسبك</p>
+
+  <div class="category-tabs">
+    <button class="cat-tab active" onclick="showCategory('accessories', event)">💍 إكسسوارات</button>
+    <button class="cat-tab" onclick="showCategory('bags', event)">👜 شنط</button>
+    <button class="cat-tab" onclick="showCategory('shoes', event)">👠 جزم</button>
+    <button class="cat-tab" onclick="showCategory('gifts', event)">🎁 هدايا مجمعة</button>
+  </div>
+
+  <div class="filters" id="colorFilters">
+    <button class="filter-btn active" onclick="filterByColor('all', event)">كل الألوان</button>
+    <button class="filter-btn" onclick="filterByColor('terracotta', event)">طوبى</button>
+    <button class="filter-btn" onclick="filterByColor('sage', event)">أحضر زيتى</button>
+    <button class="filter-btn" onclick="filterByColor('rose', event)">وردى</button>
+    <button class="filter-btn" onclick="filterByColor('cocoa', event)">بنى غامق</button>
+  </div>
+
+  <div class="products-container" id="productList"></div>
+  <!-- قسم التنسيقات -->
+<section id="style" class="style-section">
+  <h2 class="section-title">كيف تنسّقي إطلالتك</h2>
+  <p class="section-sub">إلهام لإطلالات يومية بلمسة ترابية</p>
+  <div class="style-grid">
+    
+    <div class="style-card">
+      <img src="images/style1.jpg" alt="Style 1">
+      <div class="style-overlay"><h4>تفاصيل ذهبية</h4><p>تنسيق خواتم وإكسسوارات ناعمة</p></div>
+    </div>
+    
+    <div class="style-card">
+      <img src="images/style2.jpg" alt="Style 2">
+      <div class="style-overlay"><h4>لمسة ناعمة</h4><p>عقد قلادة ذهبى مع إطلالة بيضاء</p></div>
+    </div>
+    
+    <div class="style-card">
+      <img src="images/style3.jpg" alt="Style 3">
+      <div class="style-overlay"><h4>ستايل ترابى</h4><p>جاكت بيج مع إكسسوارات كلاسيك</p></div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section id="behind" class="behind">
+  <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=800" alt="ورشتنا">
+  <div class="behind-text">
+    <h2>خلف الكواليس</h2>
+    <p>كل قطعة عندنا بتتصنع بإيد حرفيينا بحب واهتمام بالتفاصيل. بنختار الخامات بعناية، من النحاس الطبيعي للأحجار الملونة، والجلود الطبيعية للشنط والجزم، عشان نقدم لك قطع تدوم وتحكي قصة.</p>
+  </div>
+</section>
+
+<section class="gift">
+  <h2>🎁 خدمة تغليف الهدايا</h2>
+  <p>عايزة تهدي حد عزيز عليك؟ بنغلف طلبك في علبة أنيقة مع كارت إهداء مجاني.</p>
+  <button class="btn">أضيفي تغليف هدية</button>
+</section>
+
+<section class="care-section">
+  <h2 class="section-title">نصائح العناية</h2>
+  <div class="care-grid">
+    <div class="care-card"><div class="icon">💧</div><h4>ابعدي عن الماء</h4><p>شلي إكسسوارك قبل الاستحمام أو السباحة للحفاظ على لمعانه.</p></div>
+    <div class="care-card"><div class="icon">🧴</div><h4>العطور آخر خطوة</h4><p>رشي العطر قبل لبس الإكسسوار عشان المواد الكيميائية ما تأثرش عليه.</p></div>
+    <div class="care-card"><div class="icon">🧽</div><h4>تنظيف لطيف</h4><p>امسحي الشنط والجزم بقطعة قماش ناعمة جافة بعد كل استخدام.</p></div>
+    <div class="care-card"><div class="icon">📦</div><h4>تخزين صح</h4><p>احفظي القطع في علبة أو كيس قماشي بعيد عن الرطوبة والشمس.</p></div>
+  </div>
+</section>
+
+<section id="reviews" class="reviews-section">
+  <h2 class="section-title">آراء عملائنا</h2>
+  <div class="reviews-grid">
+    <div class="review-card"><div class="stars">★★★★★</div><p>"الجودة فوق الوصف والتغليف راقي جداً، هطلب تاني أكيد."</p><div class="reviewer">— سارة م.</div></div>
+    <div class="review-card"><div class="stars">★★★★★</div><p>"الشنطة أجمل من الصور بكتير، والجلد طبيعي فعلاً."</p><div class="reviewer">— نورا ع.</div></div>
+    <div class="review-card"><div class="stars">★★★★☆</div><p>"شريت طقم هدية لأمي وعجبها جداً، شكراً على الذوق."</p><div class="reviewer">— ياسمين ح.</div></div>
+  </div>
+</section>
+
+<section class="insta-section">
+  <h2 class="section-title">تابعينا على إنستجرام</h2>
+  <p class="section-sub">@darel_gamal</p>
+  <div class="insta-grid">
+    <img src="images/insta1.jpg" alt="insta1">
+    <img src="images/insta2.jpg" alt="insta2">
+    <img src="images/insta3.jpg" alt="insta3">
+    <img src="images/insta4.jpg" alt="insta4">
+    <img src="images/insta5.jpg" alt="insta5">
+    <img src="images/insta6.jpg" alt="insta6">
+  </div>
+</section>
+<footer id="contact">
+  <p>&copy; 2026 دار الجمال. جميع الحقوق محفوظة.</p>
+  <div class="socials" style="margin-top:12px;">
+    <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">WhatsApp</a>
+  </div>
+</footer>
+
+<script>
+  const products = [
+
+  // --- إكسسوارات (27 قطعة) ---
+  { id:1, name:"أسورة حجر طبيعي", price:"250 ج.م", category:"accessories", color:"terracotta", img:"images/A1.jpg" },
+  { id:2, name:"ساعة ذهبية كلاسيك", price:"180 ج.م", category:"accessories", color:"sage", img:"images/A2.jpg" },
+  { id:3, name:"حلق ذهبي دائري", price:"200 ج.م", category:"accessories", color:"rose", img:"images/A3.jpg" },
+  { id:4, name:"أسورة كريستال", price:"250 ج.م", category:"accessories", color:"cocoa", img:"images/A4.jpg" },
+  { id:5, name:"طقم ذهبي كامل", price:"150 ج.م", category:"accessories", color:"terracotta", img:"images/A5.jpg" },
+  { id:6, name:"عقد لؤلؤ", price:"180 ج.م", category:"accessories", color:"sage", img:"images/A6.jpg" },
+  { id:7, name:"ساعة نسائية جولد", price:"200 ج.م", category:"accessories", color:"rose", img:"images/A7.jpg" },
+  { id:8, name:"عقد قلب رقيق ", price:"250 ج.م", category:"accessories", color:"cocoa", img:"images/A8.jpg" },
+  { id:9, name:"خاتم أسود مطفي", price:"150 ج.م", category:"accessories", color:"terracotta", img:"images/A9.jpg" },
+  { id:10, name:"عقد ذهبي مفرد", price:"180 ج.م", category:"accessories", color:"sage", img:"images/A10.jpg" },
+  { id:11, name:"أسورة مطاطية", price:"200 ج.م", category:"accessories", color:"rose", img:"images/A11.jpg" },
+  { id:12, name:"ساعات كلاسيك", price:"250 ج.م", category:"accessories", color:"cocoa", img:"images/A12.jpg" },
+  { id:13, name:"أسورة ورود", price:"150 ج.م", category:"accessories", color:"terracotta", img:"images/A13.jpg" },
+  { id:14, name:"خاتم فيروز", price:"180 ج.م", category:"accessories", color:"sage", img:"images/A14.jpg" },
+  { id:15, name:"سلسلة ذهب ناعمة", price:"200 ج.م", category:"accessories", color:"rose", img:"images/A15.jpg" },
+  { id:16, name:"عقد شمس", price:"250 ج.م", category:"accessories", color:"cocoa", img:"images/A16.jpg" },
+  { id:17, name:"حلق لؤلؤ متدلي", price:"150 ج.م", category:"accessories", color:"terracotta", img:"images/A17.jpg" },
+  { id:18, name:"ساعة جولد مربعة", price:"180 ج.م", category:"accessories", color:"sage", img:"images/A18.jpg" },
+  { id:19, name:"خاتم ذهب عريض", price:"200 ج.م", category:"accessories", color:"rose", img:"images/A19.jpg" },
+  { id:20, name:"عقد أصداف", price:"250 ج.م", category:"accessories", color:"cocoa", img:"images/A20.jpg" },
+  { id:21, name:"ساعة نسائى جولد", price:"150 ج.م", category:"accessories", color:"terracotta", img:"images/A21.jpg" },
+  { id:22, name:"أسورة خضراء", price:"180 ج.م", category:"accessories", color:"sage", img:"images/A22.jpg" },
+  { id:23, name:"ساعة فضي دائري", price:"200 ج.م", category:"accessories", color:"rose", img:"images/A23.jpg" },
+  { id:24, name:"عقد قلب ذهبي", price:"250 ج.م", category:"accessories", color:"cocoa", img:"images/A24.jpg" },
+  { id:25, name:"ساعة ذهبية صغيرة", price:"150 ج.م", category:"accessories", color:"terracotta", img:"images/A25.jpg" },
+  { id:26, name:"طقم جولد", price:"180 ج.م", category:"accessories", color:"sage", img:"images/A26.jpg" },
+  { id:27, name:"أسورة حجر بني", price:"200 ج.م", category:"accessories", color:"rose", img:"images/A27.jpg" },
+
+  // --- شنط (41 قطعة) ---
+{ id:28, name:"شنطة لبنى متوسطه", price:"800 ج.م", category:"bags", color:"cocoa", img:"images/B1.jpg" },
+{ id:29, name:"شنطة جلد بونى صغيرة", price:"750 ج.م", category:"bags", color:"cocoa", img:"images/B2.jpg" },
+{ id:30, name:"شنطة كتف بيج", price:"900 ج.م", category:"bags", color:"terracotta", img:"images/B3.jpg" },
+{ id:31, name:"شنطة كروشيه منتى جرين", price:"850 ج.م", category:"bags", color:"rose", img:"images/B4.jpg" },
+{ id:32, name:"شنطة بونى يد", price:"700 ج.م", category:"bags", color:"cocoa", img:"images/B5.jpg" },
+{ id:33, name:"شنطة  بيج", price:"950 ج.م", category:"bags", color:"warm-cream", img:"images/B6.jpg" },
+{ id:34, name:"شنطة زيتى لامعة", price:"800 ج.م", category:"bags", color:"cocoa", img:"images/B7.jpg" },
+{ id:35, name:"شنطة ابيض منقطة", price:"850 ج.م", category:"bags", color:"terracotta", img:"images/B8.jpg" },
+{ id:36, name:"شنطة بيج يد", price:"900 ج.م", category:"bags", color:"sage", img:"images/B9.jpg" },
+{ id:37, name:"شنطة كروشيه بونى", price:"750 ج.م", category:"bags", color:"cocoa", img:"images/B10.jpg" },
+{ id:38, name:"شنطة لؤلؤ بيج", price:"800 ج.م", category:"bags", color:"warm-cream", img:"images/B11.jpg" },
+{ id:39, name:"شنطة كروشيه صفراء", price:"850 ج.م", category:"bags", color:"sage", img:"images/B12.jpg" },
+{ id:40, name:"شنطة جلد بني", price:"900 ج.م", category:"bags", color:"terracotta", img:"images/B13.jpg" },
+{ id:41, name:"شنطة كتف زرقاء", price:"700 ج.م", category:"bags", color:"cocoa", img:"images/B14.jpg" },
+{ id:42, name:"شنطة سواريه بيج", price:"750 ج.م", category:"bags", color:"warm-cream", img:"images/B15.jpg" },
+{ id:43, name:"شنطة يد سودة", price:"800 ج.م", category:"bags", color:"cocoa", img:"images/B16.jpg" },
+{ id:44, name:"شنطة كتف روز", price:"850 ج.م", category:"bags", color:"cocoa", img:"images/B17.jpg" },
+{ id:45, name:"شنطة خضراء", price:"900 ج.م", category:"bags", color:"sage", img:"images/B18.jpg" },
+{ id:46, name:"شنطة لؤلؤ صغيرة", price:"700 ج.م", category:"bags", color:"warm-cream", img:"images/B19.jpg" },
+{ id:47, name:"شنطة كتف بني", price:"750 ج.م", category:"bags", color:"cocoa", img:"images/B20.jpg" },
+{ id:48, name:"شنطة جينز", price:"800 ج.م", category:"bags", color:"cocoa", img:"images/B21.jpg" },
+{ id:49, name:"شنطة كتف بني غامق", price:"850 ج.م", category:"bags", color:"cocoa", img:"images/B22.jpg" },
+{ id:50, name:"شنطة كروشيه حمراء", price:"900 ج.م", category:"bags", color:"rose", img:"images/B23.jpg" },
+{ id:51, name:"شنطة كتف بونى", price:"700 ج.م", category:"bags", color:"cocoa", img:"images/B24.jpg" },
+{ id:52, name:"شنطة جلد نبيتى", price:"750 ج.م", category:"bags", color:"cocoa", img:"images/B25.jpg" },
+{ id:53, name:"شنطة خضراء", price:"800 ج.م", category:"bags", color:"warm-cream", img:"images/B26.jpg" },
+{ id:54, name:"شنطة كلاتش بيج", price:"850 ج.م", category:"bags", color:"warm-cream", img:"images/B27.jpg" },
+{ id:55, name:"شنطة جلد أصفر", price:"900 ج.م", category:"bags", color:"terracotta", img:"images/B28.jpg" },
+{ id:56, name:"شنطة كتف برجاندى", price:"700 ج.م", category:"bags", color:"cocoa", img:"images/B29.jpg" },
+{ id:57, name:"شنطة لؤلؤ بيبج", price:"750 ج.م", category:"bags", color:"warm-cream", img:"images/B30.jpg" },
+{ id:58, name:"شنطة يد بني", price:"800 ج.م", category:"bags", color:"cocoa", img:"images/B31.jpg" },
+{ id:59, name:"شنطة كتف بني فاتح", price:"850 ج.م", category:"bags", color:"cocoa", img:"images/B32.jpg" },
+{ id:60, name:"شنطة خضراء زيتي", price:"900 ج.م", category:"bags", color:"sage", img:"images/B33.jpg" },
+{ id:61, name:"شنطة كتف بني", price:"700 ج.م", category:"bags", color:"cocoa", img:"images/B34.jpg" },
+{ id:62, name:"شنطة كتف سودة", price:"750 ج.م", category:"bags", color:"cocoa", img:"images/B35.jpg" },
+{ id:63, name:"شنطة خضراء سودة", price:"800 ج.م", category:"bags", color:"sage", img:"images/B36.jpg" },
+{ id:64, name:"شنطة كتف بني فاتح", price:"850 ج.م", category:"bags", color:"cocoa", img:"images/B37.jpg" },
+{ id:65, name:"شنطة كتف بني غامق", price:"900 ج.م", category:"bags", color:"cocoa", img:"images/B38.jpg" },
+{ id:66, name:"شنطة تايجر بونى", price:"700 ج.م", category:"bags", color:"cocoa", img:"images/B39.jpg" },
+{ id:67, name:"شنطة كتف سوداء", price:"750 ج.م", category:"bags", color:"cocoa", img:"images/B40.jpg" },
+// --- جزم (38 قطعة) ---
+{ id:69, name:"بوت أسود كلاسيك", price:"850 ج.م", category:"sandals", color:"terracotta", img:"images/s1.jpg" },
+{ id:70, name:"كعب بونى كلاسيك", price:"900 ج.م", category:"boots", color:"cocoa", img:"images/s2.jpg" },
+{ id:71, name:"كعب شكربان", price:"750 ج.م", category:"heels", color:"sage", img:"images/s3.jpg" },
+{ id:72, name:"بوت أسود كلاسيك", price:"800 ج.م", category:"heels", color:"cocoa", img:"images/s4.jpg" },
+{ id:73, name:"شبشب فلات ورده", price:"850 ج.م", category:"boots", color:"cocoa", img:"images/s5.jpg" },
+{ id:74, name:"كعب أسود سواريه", price:"900 ج.م", category:"heels", color:"cocoa", img:"images/s6.jpg" },
+{ id:75, name:"بوت بني شمواه", price:"750 ج.م", category:"boots", color:"cocoa", img:"images/s7.jpg" },
+{ id:76, name:"كعب سواريه زيتى", price:"800 ج.م", category:"sandals", color:"rose", img:"images/s8.jpg" },
+{ id:77, name:"شبشب فلات ورد", price:"850 ج.م", category:"sandals", color:"sage", img:"images/s9.jpg" },
+{ id:78, name:"بوت كابوي", price:"900 ج.م", category:"boots", color:"cocoa", img:"images/s10.jpg" },
+{ id:79, name:"كعب ذهبي", price:"750 ج.م", category:"heels", color:"terracotta", img:"images/s11.jpg" },
+{ id:80, name:"كعب أسود", price:"800 ج.م", category:"heels", color:"cocoa", img:"images/s12.jpg" },
+{ id:81, name:"شبشب وردة بيج", price:"850 ج.م", category:"sandals", color:"rose", img:"images/s13.jpg" },
+{ id:82, name:"بوت أسود قصير", price:"900 ج.م", category:"boots", color:"cocoa", img:"images/s14.jpg" },
+{ id:83, name:"بوت كابوي فاتح", price:"750 ج.م", category:"boots", color:"cocoa", img:"images/s15.jpg" },
+{ id:84, name:"كعب الغزال", price:"800 ج.م", category:"sandals", color:"terracotta", img:"images/s16.jpg" },
+{ id:85, name:"كعب لؤلؤ بيج", price:"850 ج.م", category:"heels", color:"cocoa", img:"images/s17.jpg" },
+{ id:86, name:"كعب بونى غامق", price:"900 ج.م", category:"sandals", color:"cocoa", img:"images/s18.jpg" },
+{ id:87, name:"بوت جلد زيتى", price:"750 ج.م", category:"boots", color:"cocoa", img:"images/s19.jpg" },
+{ id:88, name:"كعب أبيض", price:"800 ج.م", category:"heels", color:"warm-cream", img:"images/s20.jpg" },
+{ id:89, name:"بوت أسود طويل", price:"850 ج.م", category:"boots", color:"cocoa", img:"images/s21.jpg" },
+{ id:90, name:"كعب الزهرة", price:"900 ج.م", category:"sandals", color:"terracotta", img:"images/s22.jpg" },
+{ id:91, name:"كعب الفراشه", price:"750 ج.م", category:"sandals", color:"sage", img:"images/s23.jpg" },
+{ id:92, name:"بوت أسود لامع", price:"800 ج.م", category:"boots", color:"cocoa", img:"images/s24.jpg" },
+{ id:93, name:"بوت بني", price:"850 ج.م", category:"boots", color:"cocoa", img:"images/s25.jpg" },
+{ id:94, name:"كعب أخضر", price:"900 ج.م", category:"heels", color:"sage", img:"images/s26.jpg" },
+{ id:95, name:"كعب بني", price:"750 ج.م", category:"heels", color:"cocoa", img:"images/s27.jpg" },
+{ id:96, name:"كعب منقط", price:"800 ج.م", category:"heels", color:"warm-cream", img:"images/s28.jpg" },
+{ id:97, name:"بوت أسود", price:"850 ج.م", category:"boots", color:"cocoa", img:"images/s29.jpg" },
+{ id:98, name:"بوت بني قصير", price:"900 ج.م", category:"boots", color:"cocoa", img:"images/s30.jpg" },
+{ id:99, name:"كعب أسود كلاسيك", price:"750 ج.م", category:"heels", color:"cocoa", img:"images/s31.jpg" },
+{ id:100, name:"كعب مطرز", price:"800 ج.م", category:"heels", color:"terracotta", img:"images/s32.jpg" },
+{ id:101, name:"كعب بني شمواه", price:"850 ج.م", category:"heels", color:"cocoa", img:"images/s33.jpg" },
+{ id:102, name:"كعب أسود سواريه", price:"900 ج.م", category:"heels", color:"cocoa", img:"images/s34.jpg" },
+{ id:103, name:"كعب مقلم", price:"750 ج.م", category:"heels", color:"terracotta", img:"images/s35.jpg" },
+{ id:104, name:"بوت أسود قصير", price:"800 ج.م", category:"boots", color:"cocoa", img:"images/s36.jpg" },
+{ id:105, name:"بوت شمواه", price:"850 ج.م", category:"boots", color:"cocoa", img:"images/s37.jpg" },
+// --- هدايا مجمعة (20 قطعة) ---
+{ id:107, name:"بوكس هدايا بيج", price:"1200 ج.م", category:"gifts", color:"warm-cream", img:"images/g1.jpg" },
+{ id:108, name:"بوكس هدايا بني", price:"1100 ج.م", category:"gifts", color:"cocoa", img:"images/g2.jpg" },
+{ id:109, name:"بوكس هدايا صغير", price:"800 ج.م", category:"gifts", color:"terracotta", img:"images/g3.jpg" },
+{ id:110, name:"بوكس هدايا لؤلؤ", price:"950 ج.م", category:"gifts", color:"warm-cream", img:"images/g4.jpg" },
+{ id:111, name:"بوكس هدايا مميز", price:"1300 ج.م", category:"gifts", color:"cocoa", img:"images/g5.jpg" },
+{ id:112, name:"بوكس فيونكة", price:"1000 ج.م", category:"gifts", color:"rose", img:"images/g6.jpg" },
+{ id:113, name:"بوكس هدايا كبير", price:"1400 ج.م", category:"gifts", color:"warm-cream", img:"images/g7.jpg" },
+{ id:114, name:"بوكس شوكولاتة", price:"900 ج.م", category:"gifts", color:"cocoa", img:"images/g8.jpg" },
+{ id:115, name:"بوكس سهرة", price:"1150 ج.م", category:"gifts", color:"cocoa", img:"images/g9.jpg" },
+{ id:116, name:"بوكس ورقي", price:"750 ج.م", category:"gifts", color:"terracotta", img:"images/g10.jpg" },
+{ id:117, name:"بوكس هدايا محزق 2", price:"950 ج.م", category:"gifts", color:"warm-cream", img:"images/g11.jpg" },
+{ id:118, name:"بوكس بفيونكة", price:"1050 ج.م", category:"gifts", color:"rose", img:"images/g12.jpg" },
+{ id:119, name:"بوكس أخضر", price:"1250 ج.م", category:"gifts", color:"sage", img:"images/g13.jpg" },
+{ id:120, name:"بوكس فخم", price:"1500 ج.م", category:"gifts", color:"cocoa", img:"images/g14.jpg" },
+{ id:121, name:"بوكس برتقالي", price:"1100 ج.م", category:"gifts", color:"terracotta", img:"images/g15.jpg" },
+{ id:122, name:"بوكس هدايا 3", price:"1350 ج.م", category:"gifts", color:"cocoa", img:"images/g16.jpg" },
+{ id:123, name:"بوكس أخضر فاتح", price:"850 ج.م", category:"gifts", color:"sage", img:"images/g17.jpg" },
+{ id:124, name:"بوكس بني فخم", price:"1450 ج.م", category:"gifts", color:"cocoa", img:"images/g18.jpg" },
+{ id:125, name:"بوكس هدايا محزق 3", price:"1000 ج.م", category:"gifts", color:"warm-cream", img:"images/g19.jpg" },
+{ id:126, name:"بوكس سهرة بني", price:"1200 ج.م", category:"gifts", color:"cocoa", img:"images/g20.jpg" },
+  
+];
+    
+
+  let currentCategory = 'accessories';
+  let currentColor = 'all';
+
+  function displayProducts(){
+    const c = document.getElementById('productList');
+    let filtered = products.filter(p => {
+    if (currentCategory === 'shoes') {
+        return p.category === 'shoes' || p.category === 'heels' || p.category === 'boots' || p.category === 'sandals';
+    }
+    return p.category === currentCategory;
+});
+    if(currentColor !== 'all') filtered = filtered.filter(p => p.color === currentColor);
+    
+    c.innerHTML = '';
+    if(filtered.length === 0){
+      c.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding:40px; color:#7a5f53;">لا توجد منتجات في هذا القسم بهذا اللون حالياً.</p>';
+      return;
+    }
+    filtered.forEach(p => {
+      c.innerHTML += `
+        <div class="product-card">
+          <img src="${p.img}" alt="${p.name}" class="product-img">
+          <div class="product-info">
+            <h3>${p.name}</h3>
+            <div class="price">${p.price}</div>
+            <button class="add-to-cart">أضيفي للسلة</button>
+          </div>
+        </div>`;
+    });
+  }
+
+ function showCategory(cat, e){
+    currentCategory = cat;
+    currentColor = 'all';
+    
+   
+
+    document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    
+    document.querySelectorAll('#colorFilters .filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('#colorFilters .filter-btn').classList.add('active');
+    
+    displayProducts();
+}
+
+  function filterByColor(color, e){
+    currentColor = color;
+    document.querySelectorAll('#colorFilters .filter-btn').forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    displayProducts();
+  }
+
+  displayProducts();
+</script>
+</body>
+</html>
