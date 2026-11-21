@@ -384,17 +384,31 @@
 
   let currentCategory = 'accessories';
   let currentColor = 'all';
-
   function displayProducts(){
-    const c = document.getElementById('productList');
-    let filtered = products.filter(p => {
-    if (currentCategory === 'shoes') {
-        return p.category === 'shoes' || p.category === 'heels' || p.category === 'boots' || p.category === 'sandals';
-    }
-    return p.category === currentCategory;
-});
-    if(currentColor !== 'all') filtered = filtered.filter(p => p.color === currentColor);
-    
+  const c = document.getElementById('productList');
+  
+  // فلترة المنتجات
+  let filtered = products.filter(p => {
+      // لو القسم جزم، اعرض كل أنواع الجزم
+      if (currentCategory === 'shoes') {
+          return p.category === 'shoes' || p.category === 'heels' || p.category === 'boots' || p.category === 'sandals';
+      }
+      // لو القسم "الكل"، اعرض كل حاجة
+      if (currentCategory === 'all') {
+          return true;
+      }
+      // غير كده اعرض حسب القسم المختار
+      return p.category === currentCategory;
+  });
+
+  // فلترة الألوان
+  if(currentColor !== 'all') {
+      filtered = filtered.filter(p => p.color === currentColor);
+  }
+
+  c.innerHTML = '';
+
+  
     c.innerHTML = '';
     if(filtered.length === 0){
       c.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding:40px; color:#7a5f53;">لا توجد منتجات في هذا القسم بهذا اللون حالياً.</p>';
